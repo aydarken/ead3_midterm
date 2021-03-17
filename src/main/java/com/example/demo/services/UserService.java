@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Article;
 import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ArticleService articleService;
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -47,4 +51,14 @@ public class UserService {
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
+
+    public List<Optional<Article>> getAllArticlesOfUser(long id) {
+        return articleService.getUserArticles(id);
+    }
+
+    public boolean isModerator(long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.get().isModerator();
+    }
+
 }

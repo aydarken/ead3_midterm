@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "articles")
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +14,9 @@ public class Post {
     private String news;
     private long publisherId;
 
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date publishedTime;
+
     public long getPublisherId() {
         return publisherId;
     }
@@ -21,9 +24,6 @@ public class Post {
     public void setPublisherId(long publisher) {
         this.publisherId = publisher;
     }
-
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date publishedTime;
 
     public long getId() {
         return id;

@@ -12,6 +12,15 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private boolean isModerator = false;
+
+    public boolean isModerator() {
+        return isModerator;
+    }
+
+    public void setModerator(boolean moderator) {
+        isModerator = moderator;
+    }
 
     public long getId() {
         return id;

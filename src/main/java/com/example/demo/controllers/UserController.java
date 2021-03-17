@@ -3,14 +3,12 @@ package com.example.demo.controllers;
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class UserController {
 
     @Autowired
@@ -40,4 +38,10 @@ public class UserController {
     public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
     }
+
+    @GetMapping(value = "/profile")
+    public void getUserArticles(@PathVariable long id){
+        userService.getAllArticlesOfUser(id);
+    }
+
 }

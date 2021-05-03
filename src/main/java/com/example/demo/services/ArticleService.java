@@ -40,8 +40,9 @@ public class ArticleService {
         articleRepository.findById(id).map(article -> {
             article.setPublishedTime(newArticle.getPublishedTime());
             article.setTitle(newArticle.getTitle());
-            article.setPublisherId(newArticle.getPublisherId());
+            article.setUser(newArticle.getUser());
             article.setNews(newArticle.getNews());
+            article.setUserId(newArticle.getUser().getId());
             return article;
         })
                 .orElseGet(() -> {
@@ -63,7 +64,7 @@ public class ArticleService {
     public List<Optional <Article>> getUserArticles(long id){
         List<Optional<Article>> articlesList = new ArrayList<>();
 
-        articlesList.add(articleRepository.findByPublisherId(id));
+        articlesList.add(articleRepository.findByUserId(id));
 
         return articlesList;
     }

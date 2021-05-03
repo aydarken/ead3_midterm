@@ -4,6 +4,8 @@ import com.example.demo.models.Article;
 import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,13 +13,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -60,5 +65,6 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         return user.get().isModerator();
     }
+
 
 }

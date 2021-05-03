@@ -3,14 +3,16 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Article;
 import com.example.demo.services.ArticleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/articlesapi")
+@Api(value = "Articles Controller class", description = "This class allows to interact with Articles object")
 public class ArticleController {
 
     @Autowired

@@ -1,7 +1,14 @@
 package com.example.demo.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,44 +21,16 @@ public class User {
     private String password;
     private boolean isModerator = false;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Article> articles;
+
     public boolean isModerator() {
         return isModerator;
     }
 
     public void setModerator(boolean moderator) {
         isModerator = moderator;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

@@ -20,15 +20,6 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo.controllers"))
                 .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Spring Course Spring Data API Documentation")
-                .description("This project is for demonstration purposes only")
-                .version("1.0.0")
                 .build();
     }
 }

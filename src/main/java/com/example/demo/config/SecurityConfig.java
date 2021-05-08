@@ -22,16 +22,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/users/hello/**").permitAll()
-                .antMatchers("/users/create").hasAuthority("ADMIN")
+                .antMatchers("/users"/*, "/users/{id}", "users/all"*/).permitAll()
+                .antMatchers("/users/**").permitAll()
+                .antMatchers("/users/create", "/users/update{id}", "/users/delete{id}").hasAuthority("ADMIN")
+
+                .antMatchers("/articles"/*, "/articles/{id}", "articles/all"*/).permitAll()
+                .antMatchers("/articles/**").permitAll()
+                .antMatchers("/articles/create", "/articles/update{id}", "/articles/delete{id}").hasAnyAuthority("ADMIN", "USER")
+
+                .antMatchers("/v2/api-docs",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                // What's the authenticationManager()?
-                // An object provided by WebSecurityConfigurerAdapter, used to authenticate the user passing user's credentials
-                // The filter needs this auth manager to authenticate the user.
                 .addFilter(new JwtTokenGeneratorFilter(authenticationManager()))
 
-                // Add a filter to validate the tokens with every request
                 .addFilterAfter(new JwtTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

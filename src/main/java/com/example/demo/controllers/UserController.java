@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,34 +9,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usersapi")
-@Api(value = "User Controller class", description = "This class allows to interact with User object")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/users")
+    @GetMapping(value = "/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/users/{id}")
+    @GetMapping(value = "/users/{id}")
     public Optional<User> getUser(@PathVariable long id) {
         return userService.getUser(id);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @PostMapping(value = "/users/create")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/users/update/{id}")
     public void getUser(@PathVariable long id, @RequestBody User user) {
         userService.updateUser(id, user);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/users/delete/{id}")
     public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
     }

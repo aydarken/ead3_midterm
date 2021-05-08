@@ -3,24 +3,21 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Article;
 import com.example.demo.services.ArticleService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/articlesapi")
-@Api(value = "Articles Controller class", description = "This class allows to interact with Articles object")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
 
     @GetMapping(value = "/articles")
-    public List<Article> getAllPosts() {
-        return articleService.getAllArticles();
+    public String getAllPosts() {
+       articleService.getAllArticles();
+        return "articles";
     }
 
     @GetMapping(value = "/articles/{id}")
@@ -28,17 +25,17 @@ public class ArticleController {
         return articleService.getArticle(id);
     }
 
-    @RequestMapping(value = "/articles", method = RequestMethod.POST)
+    @PostMapping(value = "/articles/create")
     public void addArticle(@RequestBody Article article) {
         articleService.addArticle(article);
     }
 
-    @RequestMapping(value = "/articles/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/articles/update/{id}")
     public void updateArticle(@PathVariable long id, @RequestBody Article article) {
         articleService.updateArticle(id, article);
     }
 
-    @RequestMapping(value = "/articles/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/articles/delete/{id}")
     public void deleteArticle(@PathVariable long id) {
         articleService.deleteArticle(id);
     }

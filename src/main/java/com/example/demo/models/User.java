@@ -24,6 +24,7 @@ public class User implements UserDetails {
     private String password;
     private boolean isModerator = false;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

@@ -21,10 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/users"/*, "/users/{id}", "users/all"*/).permitAll()
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/users/create", "/users/update{id}", "/users/delete{id}").hasAuthority("ADMIN")
+                .antMatchers("/users/add").permitAll()
+                .antMatchers("/users", "/users/**").permitAll()
+                .antMatchers( "/users/update{id}", "/users/delete{id}").hasAuthority("ADMIN")
 
                 .antMatchers("/articles"/*, "/articles/{id}", "articles/all"*/).permitAll()
                 .antMatchers("/articles/**").permitAll()
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/configuration/ui",
                         "/configuration/security",
-                        "/swagger-ui.html",
+                        "/swagger-ui.html/**",
                         "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

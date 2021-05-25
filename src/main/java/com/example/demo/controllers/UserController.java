@@ -24,7 +24,8 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @PostMapping(value = "/users/create")
+
+    @PostMapping(value = "/users/add")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
